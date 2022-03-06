@@ -1,3 +1,7 @@
+## How to use -
+- Install all dependency using ```diff npm install```
+- Run with ```xml npm start```
+
 ## Api Router
 Login with postman : http://localhost:3000/login
 
@@ -8,3 +12,6 @@ Login with postman : http://localhost:3000/login
 4. Followers
 5. Followings
 6. Blocked 
+7. me following but they dont
+8. they follow me but i dont
+9. mutual followers
