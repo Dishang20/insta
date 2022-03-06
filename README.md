@@ -1,6 +1,6 @@
 ## How to use -
-- Install all dependency using ```diff+ npm install```
-- Run with ```xml "npm start"```
+- Install all dependency using ```npm install```
+- Run with ```npm start```
 
 ## Api Router
 Login with postman : http://localhost:3000/login
