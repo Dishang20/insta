@@ -1,5 +1,5 @@
 ## How to use -
-- Install all dependency using ```npm install```
+- Install all dependency using ```npm run install```
 - Run with ```npm start```
 
 ## Api Router
