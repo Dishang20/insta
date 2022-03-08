@@ -1,6 +1,6 @@
-
 const { IgApiClient } = require('instagram-private-api');
 const instaUser = require('../models/instaModel')
+
 exports.showProfile = (async (req, res) => {
     const { username, password } = req.body
     const ig = new IgApiClient();
@@ -133,4 +133,3 @@ exports.showProfile = (async (req, res) => {
         return items;
     };
 })
-
