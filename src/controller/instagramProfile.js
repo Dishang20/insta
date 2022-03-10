@@ -72,10 +72,10 @@ exports.showProfile = (async (req, res) => {
             const followingUsername = new Set(following.map(({ username }) => username));
             const meNotFollowBack = followers.filter(({ username }) => !followingUsername.has(username))
             const mutualFollowers = (followers.filter(({ username }) => followingUsername.has(username)) && following.filter(({ username }) => followersUsername.has(username)))
-var stroryViewers = [];
-story.forEach(users => {
-    stroryViewers.push(users.user.username)
-})
+            var stroryViewers = [];
+            story.forEach(users => {
+                stroryViewers.push(users.user.username)
+            })
 
             /// lengths
             var mutualCount = mutualFollowers.length;
@@ -86,17 +86,17 @@ story.forEach(users => {
             var blockedCount = blocked.length;
             var closeCount = close.length;
             var meNotFollowCount = meNotFollowBack.length;
-var stroryViewersCount = stroryViewers.length;
+
 
             //// response
             var rec = {
                 success: true,
+                userId: loggedInUser.pk,
                 name: loggedInUser.username,
                 profile: loggedInUser.profile_pic_url,
                 account_type: loggedInUser.account_type,
                 postCount,
-                story:stroryViewers,
-                stroryViewersCount,
+                story,
                 posts: postData,
                 followerCount,
                 followers: followers,

@@ -18,8 +18,6 @@ app.use(function (req, res, next) {
 const apiRoutes = require('./src/router/index.routes')
 app.use('/', apiRoutes)
 
-
-
 app.listen(PORT, () => {
     console.log('Server started');
 })
