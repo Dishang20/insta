@@ -74,7 +74,11 @@ exports.showProfile = (async (req, res) => {
             const mutualFollowers = (followers.filter(({ username }) => followingUsername.has(username)) && following.filter(({ username }) => followersUsername.has(username)))
             var stroryViewers = [];
             story.forEach(users => {
+
                 stroryViewers.push(users.user.username)
+
+                stroryViewers.push(users.user.username)
+
             })
 
             /// lengths
@@ -87,6 +91,7 @@ exports.showProfile = (async (req, res) => {
             var closeCount = close.length;
             var meNotFollowCount = meNotFollowBack.length;
 
+            var stroryViewersCount = stroryViewers.length;
 
             //// response
             var rec = {
