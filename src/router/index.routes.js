@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const { showProfile, getProfileByApi, } = require('../controller/instagramProfile')
+const { showProfile } = require('../controller/instagramProfile')
+
 
 router.post('/login', showProfile)
 

@@ -4,7 +4,7 @@
 
 ## Api Router
 Login with postman : http://localhost:3000/login
-
+Live url login in postman : https://elastic-goldberg.34-106-86-128.plesk.page/login
 ## Response 
 1. User name
 2. Profile Url

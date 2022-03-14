@@ -1,7 +1,7 @@
 const { IgApiClient } = require('instagram-private-api');
 const instaUser = require('../models/instaModel')
-
-exports.showProfile = (async (req, res) => {
+const catchError = require('../middleware/catchError')
+exports.showProfile = catchError(async (req, res) => {
     const { username, password } = req.body
     const ig = new IgApiClient();
     ig.state.generateDevice(username);
