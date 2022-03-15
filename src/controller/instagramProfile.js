@@ -5,7 +5,7 @@ exports.showProfile = catchError(async (req, res) => {
     const { username, password } = req.body
     const ig = new IgApiClient();
     ig.state.generateDevice(username);
-
+    // await ig.simulate.preLoginFlow()
     ig.account.login(username, password).then(async (loggedInUser) => {
         if (loggedInUser) {
             // var pk
@@ -134,6 +134,7 @@ exports.showProfile = catchError(async (req, res) => {
         });
         res.send(rec)
     });
+    // await ig.simulate.postLoginFlow()
     async function getAllItemsFromFeed(feed) {
         let items = [];
         do {
