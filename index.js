@@ -5,11 +5,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 require('./src/db/conn')
-app.use(express.urlencoded({ extended: true }))
+
+// app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(express.json())
-const { proxyServer } = require('./src/middleware/proxy')
+// app.use(express.json())
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -18,7 +19,6 @@ app.use(function (req, res, next) {
 });
 
 const apiRoutes = require('./src/router/index.routes')
-// console.log(apiRoutes);
 app.use('/', apiRoutes)
 
 app.listen(PORT, () => {
