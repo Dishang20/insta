@@ -1,14 +1,14 @@
 const { IgApiClient } = require('instagram-private-api');
 const instaUser = require('../models/instaModel')
 const catchError = require('../middleware/catchError')
+
 exports.showProfile = catchError(async (req, res) => {
     const { username, password } = req.body
     const ig = new IgApiClient();
     ig.state.generateDevice(username);
-    // await ig.simulate.preLoginFlow()
+
     ig.account.login(username, password).then(async (loggedInUser) => {
         if (loggedInUser) {
-            // var pk
             instaUser.findOne({ pk: loggedInUser.pk })
                 .then(saved => {
                     if (saved) {
@@ -34,12 +34,11 @@ exports.showProfile = catchError(async (req, res) => {
                     })
                 })
 
-            // console.log(loggedInUser.pk);
-            //// user profile details
+            // User Profile Details
             var userFeed = ig.feed.user(loggedInUser.pk);
             var posts = await userFeed.items();
 
-            //// post details filter
+            // Post Details Filter
             var postData = [];
             for (var i = 0; i < posts.length; i++) {
                 var postId = posts[i].id;
@@ -51,22 +50,22 @@ exports.showProfile = catchError(async (req, res) => {
                 postData.push({ post_id: postId, postCommentsCount: commentCount, postComments: comments, post_likes: likeCount, top_likers: top_likers, post_likers: likers });
             }
 
-            //// all feeds
+            // TODO:  All Feeds ...
             const storyFeed = ig.feed.userStory(loggedInUser.pk)
             const followersFeed = ig.feed.accountFollowers(loggedInUser.pk);
             const followingFeed = ig.feed.accountFollowing(loggedInUser.pk);
             const blockedFeed = ig.feed.blockedUsers(loggedInUser.pk);
             const closeFeed = ig.feed.bestFriendships(loggedInUser.pk);
 
-            /// feed lists
+            // TODO: Feed Lists ...
             const followers = await getAllItemsFromFeed(followersFeed);
             const following = await getAllItemsFromFeed(followingFeed);
             const story = await getAllItemsFromFeed(storyFeed);
             const blocked = await getAllItemsFromFeed(blockedFeed);
             const close = await getAllItemsFromFeed(closeFeed);
             const postDetails = await getAllItemsFromFeed(userFeed);
-            // console.log(postDetails);
-            /// filters
+
+            // Filters ...
             const followersUsername = new Set(followers.map(({ username }) => username));
             const notFollowingYou = following.filter(({ username }) => !followersUsername.has(username))
             const followingUsername = new Set(following.map(({ username }) => username));
@@ -74,14 +73,11 @@ exports.showProfile = catchError(async (req, res) => {
             const mutualFollowers = (followers.filter(({ username }) => followingUsername.has(username)) && following.filter(({ username }) => followersUsername.has(username)))
             var stroryViewers = [];
             story.forEach(users => {
-
                 stroryViewers.push(users.user.username)
-
                 stroryViewers.push(users.user.username)
-
             })
 
-            /// lengths
+            // TODO: Lengths ...
             var mutualCount = mutualFollowers.length;
             var postCount = postData.length;
             var followerCount = followers.length;
@@ -90,10 +86,9 @@ exports.showProfile = catchError(async (req, res) => {
             var blockedCount = blocked.length;
             var closeCount = close.length;
             var meNotFollowCount = meNotFollowBack.length;
-
             var stroryViewersCount = stroryViewers.length;
 
-            //// response
+            // TODO: Add Response ...
             var rec = {
                 success: true,
                 userId: loggedInUser.pk,
@@ -134,7 +129,8 @@ exports.showProfile = catchError(async (req, res) => {
         });
         res.send(rec)
     });
-    // await ig.simulate.postLoginFlow()
+
+    // TODO: Get Feeds ...
     async function getAllItemsFromFeed(feed) {
         let items = [];
         do {
