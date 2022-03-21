@@ -33,7 +33,7 @@ exports.showProfile = catchError(async (req, res) => {
             if (err) {
                 return res.send(err)
             }
-            if (httpResponse.statusCode === 200 && body) {
+            if (body) {
                 var profile = JSON.parse(body);
                 request.get({
                     uri: `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTA_APP_SECRET}&access_token=` + profile.access_token
@@ -41,42 +41,43 @@ exports.showProfile = catchError(async (req, res) => {
                     if (err1) {
                         return res.send(err1)
                     }
-                    if (resp1 && body1) {
+                    if (body1) {
                         console.log('body 1', body1);
                         var access = JSON.parse(body1)
+                        console.log(access);
                         request.get({
                             uri: `https://graph.instagram.com/${access.user_id}?access_token=${access.access_token}&fields=id,username`
                         }, function (err2, resp2, body2) {
                             if (err2) {
                                 return res.send(err2)
                             }
-                            if (resp2 && body2) {
+                            if (body2) {
                                 return res.send(body2)
                             }
                         })
                     }
                 })
             }
-
+            return;
         }
     );
-    request.get({
-        uri: `https://www.instagram.com/${username}/?__a=1`
-    }, function (err, response, body) {
-        if (err) {
-            return res.send({
-                err: err
-            })
-        }
-        var id;
-        if (response.statusCode === 200 && body) {
-            id = JSON.parse(body)
-            data = id.logging_page_id
-        }
-        var pkId = data.substring(12)
-        console.log(pkId);
-        // res.send(id)
-    })
+    // request.get({
+    //     uri: `https://www.instagram.com/${username}/?__a=1`
+    // }, function (err, response, body) {
+    //     if (err) {
+    //         return res.send({
+    //             err: err
+    //         })
+    //     }
+    //     var id;
+    //     if (response.statusCode === 200 && body) {
+    //         id = JSON.parse(body)
+    //         data = id.logging_page_id
+    //     }
+    //     var pkId = data.substring(12)
+    //     console.log(pkId);
+    //     res.send(id)
+    // })
 
     // ig.account.login(username, password).then(async (loggedInUser) => {
     //     if (loggedInUser) {
